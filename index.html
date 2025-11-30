@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>LiPo Battery Capacity Calculator</title>
+    <link>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Akku Kapazitätsrechner</h1>
+      <div>
+        <button class="tab-button active" onclick="switchTab('cylinder')">Zylindrisch</button>
+        <button class="tab-button" onclick="switchTab('rectangle')">Rechteckig</button>
+      </div>
+	  
+	   <!-- Cylinder Tab -->
+      <div class="tab-content active" id="cylinder">
+        <div class="results">
+          <div>
+            <strong>Energiekapazität (Wh):</strong>
+            <span id="capacity-result">0.0</span>
+          </div>
+          <div>
+            <strong>Kapazität (mAh):</strong>
+            <span id="mAh-result">0.0</span>
+          </div>
+          <div>
+            <strong>Laufzeit (min):</strong>
+            <span id="runtime-result">0.0</span>
+          </div>
+        </div>
+		
+        <div class="input-group">
+          <label>Außendurchmesser (mm):</label>
+          <input type="number" id="outer-diameter" value="30.0"></input>
+        </div>
+        <div class="input-group">
+          <label>Innendurchmesser (mm):</label>
+          <input type="number" id="inner-diameter" value="18.0">
+        </div>
+        <div class="input-group">
+          <label>Höhe (mm):</label>
+          <input type="number" id="height" value="10.0"></input>
+        </div>
+        <div class="input-group">
+          <label>Bruchteil des Zylinders (0 bis 1):</label>
+          <input type="number" id="fraction" value="0.75"></input>
+        </div>
+        <div class="input-group">
+          <label>Energiedichte (Wh/cm³):</label>
+          <input type="number" id="energy-density" value="0.28"></input>
+        </div>
+        <div class="input-group">
+          <label>Spannung (V):</label>
+          <input type="number" id="voltage" value="3.7"></input>
+        </div>
+        <div class="input-group">
+          <label>Verbraucher | Last (Wh):</label>
+          <input type="number" id="load-wh" value="0.1"></input>
+        </div>
+        <div class="info-box">
+          <h2>Typische Energiedichten und Spezifikationen von Akkutypen</h2>
+          <ul>
+            <li><strong>Blei-Säure (Lead-Acid) | Pb:</strong> 0.04 – 0.06 Wh/cm³
+              <span class="specs">Nominal: 2 V | End-of-Charge: 2.4 – 2.45 V | Cut-off: 1.75 V | Ladeg.: 0.1C (max 0.5C), 100 mA</span>
+            </li>
+            <li><strong>NiMH (Nickel-Metallhydrid) | NiMH:</strong> 0.06 – 0.09 Wh/cm³
+              <span class="specs">Nominal: 1.2 V | End-of-Charge: 1.4 V | Cut-off: 1.0 V | Ladeg.: 0.2C (max 1C), 200 mA</span>
+            </li>
+            <li><strong>Alkaline (Zink-Mangan) | Zn-Mn:</strong> 0.08 – 0.15 Wh/cm³
+              <span class="specs">Nominal: 1.5 V | End-of-Charge: 1.6 V | Cut-off: 0.9 V | Ladeg.: Nicht wiederaufladbar</span>
+            </li>
+            <li><strong>LiFePO4 (Lithium-Eisenphosphat) | LiFePO4:</strong> 0.1 – 0.17 Wh/cm³
+              <span class="specs">Nominal: 3.2 V | End-of-Charge: 3.65 V | Cut-off: 2.0 V | Lade.: 0.5C (max 1C), 500 mA</span>
+            </li>
+            <li><strong>LiPo (Lithium-Polymer) | LiPo:</strong> 0.2 – 0.3 Wh/cm³
+              <span class="specs">Nominal: 3.7 V | End-of-Charge: 4.2 V | Cut-off: 3.0 V | Ladeg.: 1C (max 2C), 1000 mA</span>
+            </li>
+            <li><strong>Li-ion (Lithium-Ionen) | Li-ion:</strong> 0.25 – 0.35 Wh/cm³
+              <span class="specs">Nominal: 3.7 V | End-of-Charge: 4.2 V | Cut-off: 3.0 V | Ladeg.: 0.5C (max 1C), 500 mA</span>
+            </li>
+            <li><strong>Luft-Zink (Air-Zinc) | Zn-Air:</strong> 0.4 – 0.6 Wh/cm³
+              <span class="specs">Nominal: 1.4 V | End-of-Charge: Müll | Cut-off: 0.9 V | Ladeg.: Nicht wiederaufladbar</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+	  
+	  <!-- Rectangle Tab -->
+      <div class="tab-content" id="rectangle">
+        <div class="results">
+          <div>
+            <strong>Energiekapazität (Wh):</strong>
+            <span id="capacity-result-rect">0.0</span>
+          </div>
+          <div>
+            <strong>Kapazität (mAh):</strong>
+            <span id="mAh-result-rect">0.0</span>
+          </div>
+          <div>
+            <strong>Laufzeit (min):</strong>
+            <span id="runtime-resultr">0.0</span>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Länge (mm):</label>
+          <input type="number" id="length" value="20.0"></input>
+        </div>
+        <div class="input-group">
+          <label>Breite (mm):</label>
+          <input type="number" id="width" value="8.0"></input>
+        </div>
+        <div class="input-group">
+          <label>Höhe (mm):</label>
+          <input type="number" id="height-rect" value="4.0"></input>
+        </div>
+        <div class="input-group">
+          <label>Energiedichte (Wh/cm³):</label>
+          <input type="number" id="energy-density-rect" value="0.28"></input>
+        </div>
+        <div class="input-group">
+          <label>Spannung (V):</label>
+          <input type="number" id="voltage-rect" value="3.7"></input>
+        </div>
+        <div class="input-group">
+          <label>Verbraucher | Last (Wh):</label>
+          <input type="number" id="load-whr" value="0.1"></input>
+        </div>
+        <div class="info-box">
+          <h2>Typische Energiedichten und Spezifikationen von Akkutypen</h2>
+          <ul>
+            <li><strong>Blei-Säure (Lead-Acid) | Pb:</strong> 0.04 – 0.06 Wh/cm³
+              <span class="specs">Nominal: 2 V | End-of-Charge: 2.4 – 2.45 V | Cut-off: 1.75 V | Ladeg.: 0.1C (max 0.5C), 100 mA</span>
+            </li>
+            <li><strong>NiMH (Nickel-Metallhydrid) | NiMH:</strong> 0.06 – 0.09 Wh/cm³
+              <span class="specs">Nominal: 1.2 V | End-of-Charge: 1.4 V | Cut-off: 1.0 V | Ladeg.: 0.2C (max 1C), 200 mA</span>
+            </li>
+            <li><strong>Alkaline (Zink-Mangan) | Zn-Mn:</strong> 0.08 – 0.15 Wh/cm³
+              <span class="specs">Nominal: 1.5 V | End-of-Charge: 1.6 V | Cut-off: 0.9 V | Ladeg.: Nicht wiederaufladbar</span>
+            </li>
+            <li><strong>LiFePO4 (Lithium-Eisenphosphat) | LiFePO4:</strong> 0.1 – 0.17 Wh/cm³
+              <span class="specs">Nominal: 3.2 V | End-of-Charge: 3.65 V | Cut-off: 2.0 V | Lade.: 0.5C (max 1C), 500 mA</span>
+            </li>
+            <li><strong>LiPo (Lithium-Polymer) | LiPo:</strong> 0.2 – 0.3 Wh/cm³
+              <span class="specs">Nominal: 3.7 V | End-of-Charge: 4.2 V | Cut-off: 3.0 V | Ladeg.: 1C (max 2C), 1000 mA</span>
+            </li>
+            <li><strong>Li-ion (Lithium-Ionen) | Li-ion:</strong> 0.25 – 0.35 Wh/cm³
+              <span class="specs">Nominal: 3.7 V | End-of-Charge: 4.2 V | Cut-off: 3.0 V | Ladeg.: 0.5C (max 1C), 500 mA</span>
+            </li>
+            <li><strong>Luft-Zink (Air-Zinc) | Zn-Air:</strong> 0.4 – 0.6 Wh/cm³
+              <span class="specs">Nominal: 1.4 V | End-of-Charge: Müll | Cut-off: 0.9 V | Ladeg.: Nicht wiederaufladbar</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+	
+  <script src="app.js"></script>
+  </body>
+
+</html>
